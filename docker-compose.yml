@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: buzzz-front-nginx
+    build: ./nginx
+    links:
+      - app:app
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    restart: unless-stopped
+
+  app:
+    container_name: buzzz-front-app
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - ENVIRONMENT=docker
+    restart: unless-stopped
